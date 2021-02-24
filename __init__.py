@@ -10,12 +10,29 @@ class TextToBeep(MycroftSkill):
     print('Loading Communication Relay...')
     
     def end_recording_sound(self, message):
-        play_audio_file("/home/alex/mycroft-core/mycroft/res/snd/end_listening.wav")
+        play_audio_file("/home/alex/mycroft-core/mycroft/res/snd/BD1_end_listening.wav")
     
     def play_sound(self, message):
-        number = random.randint(1,11)
-        play_audio_file(
-            "/home/alex/mycroft-core/mycroft/res/snd/bd1clips/BD-1 Clip {}.wav".format(number)
+        
+        speak_text = '{}'.format(message.data.get('speak')[0]
+        
+        print len(speak_text)
+        
+        if len(speak_text) <= 15
+            play_short_sound
+        elif len(speak_text) > 15
+            play_talking_sound
+        
+        def play_short_sound
+            number = random.randint(1,46)
+            play_audio_file(
+            "/home/alex/mycroft-core/mycroft/res/snd/BD1/Sounds/BD1_Sounds_{}.wav".format(number)
+            )
+        
+        def play_talking_sound
+            number = random.randint(1,19)
+            play_audio_file(
+            "/home/alex/mycroft-core/mycroft/res/snd/BD1/Talking/BD1_Talking_{}.wav".format(number)
             )
 
 def create_skill():
