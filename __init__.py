@@ -14,22 +14,17 @@ class TextToBeep(MycroftSkill):
     
     def play_sound(self, message):
         
-        speak_text = '{}'.format(message.data.get('speak')[0]
+        speak_text = str(message.data.get('utterance'))
+        speak_len = len(speak_text)
         
-        print len(speak_text)
+        print("There are {} characters in this sentence.".format(speak_len))
         
-        if len(speak_text) <= 15
-            play_short_sound
-        elif len(speak_text) > 15
-            play_talking_sound
-        
-        def play_short_sound
+        if speak_len <= 15:
             number = random.randint(1,46)
             play_audio_file(
             "/home/alex/mycroft-core/mycroft/res/snd/BD1/Sounds/BD1_Sounds_{}.wav".format(number)
-            )
-        
-        def play_talking_sound
+            ) 
+        elif speak_len > 15:
             number = random.randint(1,19)
             play_audio_file(
             "/home/alex/mycroft-core/mycroft/res/snd/BD1/Talking/BD1_Talking_{}.wav".format(number)
