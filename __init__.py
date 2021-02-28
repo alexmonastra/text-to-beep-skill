@@ -1,6 +1,7 @@
 from mycroft import MycroftSkill
 from mycroft.util import play_audio_file
 import random
+import time
 
 class TextToBeep(MycroftSkill):
     def initialize(self):
@@ -9,27 +10,44 @@ class TextToBeep(MycroftSkill):
 
     print('Loading Communication Relay...')
     
+
     def end_recording_sound(self, message):
+        
+        #Plays an audio cue so you know when mycroft is done listening
+        
         play_audio_file("/home/alex/mycroft-core/mycroft/res/snd/BD1_end_listening.wav")
     
+
     def play_sound(self, message):
+        
+        #Plays a short or long (or both) audio clip depending on the length of the "Speak" message
         
         speak_text = str(message.data.get('utterance'))
         speak_len = len(speak_text)
         
         print("There are {} characters in this sentence.".format(speak_len))
         
-        if speak_len <= 15:
+        def play_short_sound():
             number = random.randint(1,46)
-            play_audio_file(
-            "/home/alex/mycroft-core/mycroft/res/snd/BD1/Sounds/BD1_Sounds_{}.wav".format(number)
-            ) 
-        elif speak_len > 15:
-            number = random.randint(1,19)
-            play_audio_file(
-            "/home/alex/mycroft-core/mycroft/res/snd/BD1/Talking/BD1_Talking_{}.wav".format(number)
-            )
+            audio = "/home/alex/mycroft-core/mycroft/res/snd/BD1/Sounds/BD1_Sounds_{}.wav".format(number)
+            play_audio_file(audio)
 
+        def play_talking_sound():
+            number = random.randint(1,19)
+            audio = "/home/alex/mycroft-core/mycroft/res/snd/BD1/Talking/BD1_Talking_{}.wav".format(number)
+            play_audio_file(audio)       
+            
+        if speak_len <= 30:
+            play_short_sound()
+            
+        elif speak_len > 30 and speak_len <= 60:
+            play_talking_sound()
+            
+        elif speak_len > 60:
+            play_short_sound()
+            time.sleep(2)
+            play_talking_sound()
+        
 def create_skill():
     return TextToBeep()
 
